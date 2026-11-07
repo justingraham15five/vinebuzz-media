@@ -113,14 +113,20 @@ function vPrevious() {
   const repl = new Set(list.map(a => a.replaced_with).filter(Boolean));
   for (let i = list.length - 1; i >= 0; i--) if (repl.has(list[i].ad_id)) list.splice(i, 1);
   const hasPerf = list.some(a => a.performance); const sort = hasPerf ? psort : "newest";
-  list.sort(sort === "top" ? (a, b) => score(b) - score(a) : (a, b) => new Date(b.go_out) - new Date(a.go_out));
+  const mkey = a => { const d = new Date(a.go_out); return d.getFullYear() * 12 + d.getMonth(); };
+  list.sort((a, b) => mkey(b) - mkey(a) || (sort === "top" ? score(b) - score(a) : 0) || new Date(b.go_out) - new Date(a.go_out));
+  const posted = ads.filter(a => a.status === "posted" && a.performance && a.go_out && new Date(a.go_out).getTime() >= from && new Date(a.go_out).getTime() <= Date.now());
+  const tot = k => posted.reduce((t, a) => t + (a.performance[k] || 0), 0), has = k => posted.some(a => a.performance[k] != null);
+  const stat = (v, l) => `<div class="stat"><b>${v}</b><span>${l}</span></div>`;
+  const sumHtml = posted.length ? `<div class="card insights"><div class="stats">${stat(tot("reactions"), "reactions")}${stat(tot("comments"), "comments")}${stat(tot("shares"), "shares")}${has("reach") ? stat(tot("reach"), "people reached") : ""}${has("views") ? stat(tot("views"), "video views") : ""}</div></div>` : "";
   $("ctrl").innerHTML = `<div class="row" style="margin-bottom:12px"><div class="seg">${PREV.map(r => `<button class="${r[0] === prange ? "on" : ""}" data-prange="${r[0]}">${r[1]}</button>`).join("")}</div>
     <div class="seg"><button class="${sort === "top" ? "on" : ""}" data-psort="top" ${hasPerf ? "" : "disabled"}>Top performing</button><button class="${sort === "newest" ? "on" : ""}" data-psort="newest">Newest first</button></div>${hasPerf ? "" : '<span class="small muted">Performance data unavailable</span>'}</div>`;
   if (!list.length) return '<div class="empty">No posts in this range yet.</div>';
-  let month = "";
-  return list.map(a => {
+  let month = "", rank = 0;
+  return sumHtml + list.map(a => {
     let out = "";
-    if (sort === "newest") { const m = new Date(a.go_out).toLocaleString([], { month: "long", year: "numeric" }); if (m !== month) { month = m; out += `<h3>${esc(m)}</h3>`; } }
+    const m = new Date(a.go_out).toLocaleString([], { month: "long", year: "numeric" }); if (m !== month) { month = m; rank = 0; out += `<h3>${esc(m)}</h3>`; }
+    if (sort === "top" && a.status === "posted" && a.performance) out += `<div class="small muted" style="margin:0 0 4px 2px"><b>#${++rank}</b> in ${esc(m)}</div>`;
     const p = a.performance;
     const perf = p ? `<div class="small muted" style="margin-top:6px">👍 ${p.reactions ?? 0} reactions · 💬 ${p.comments ?? 0} · ↗ ${p.shares ?? 0}${p.reach != null ? ` · 👁 ${p.reach} reach` : ""}${p.views != null ? ` · ▶ ${p.views} views` : ""}${p.avg_watch_sec != null ? ` · ⏱ avg watch ${mmss(p.avg_watch_sec)}` : ""}${p.nonfollower_reach != null ? ` · 🆕 ${p.nonfollower_reach} new people reached` : ""}</div>` : "";
     if (a.status !== "posted") {
