@@ -105,6 +105,7 @@ function vUpcoming() {
   return list.length ? list.map(a => a.status === "awaiting" ? needsApproval(a) : card(a)).join("") : '<div class="empty">No posts in this range.</div>';
 }
 function vAwaiting() { $("ctrl").innerHTML = ""; return waiting.length ? waiting.map(needsApproval).join("") : '<div class="empty">Nothing needs your approval right now.</div>'; }
+function mmss(n) { n = Math.round(n); return `${Math.floor(n / 60)}:${String(n % 60).padStart(2, "0")}`; }
 function score(a) { const p = a.performance || {}; return (p.reactions || 0) + (p.comments || 0) + (p.shares || 0); }
 function vPrevious() {
   const days = PREV.find(r => r[0] === prange)[2]; const from = Date.now() - days * 864e5;
@@ -121,7 +122,7 @@ function vPrevious() {
     let out = "";
     if (sort === "newest") { const m = new Date(a.go_out).toLocaleString([], { month: "long", year: "numeric" }); if (m !== month) { month = m; out += `<h3>${esc(m)}</h3>`; } }
     const p = a.performance;
-    const perf = p ? `<div class="small muted" style="margin-top:6px">👍 ${p.reactions ?? 0} reactions · 💬 ${p.comments ?? 0} · ↗ ${p.shares ?? 0}${p.reach != null ? ` · 👁 ${p.reach} reach` : ""}</div>` : "";
+    const perf = p ? `<div class="small muted" style="margin-top:6px">👍 ${p.reactions ?? 0} reactions · 💬 ${p.comments ?? 0} · ↗ ${p.shares ?? 0}${p.reach != null ? ` · 👁 ${p.reach} reach` : ""}${p.views != null ? ` · ▶ ${p.views} views` : ""}${p.avg_watch_sec != null ? ` · ⏱ avg watch ${mmss(p.avg_watch_sec)}` : ""}${p.nonfollower_reach != null ? ` · 🆕 ${p.nonfollower_reach} new people reached` : ""}</div>` : "";
     if (a.status !== "posted") {
       const why = a.status === "test_not_posted" ? "Did not post. Reason: Test mode." : a.not_ran_reason === "technical" ? "Did not run: technical issue" : a.not_ran_reason === "time_passed" ? "Did not run: time passed" : "NOT RAN - Not approved on time";
       out += card(a, "notran", `<div class="lbl red">${esc(why)}</div>`, a.rerun_label && form(a, "rerun") ? `<div class="acts"><a class="btn" href="${esc(form(a, "rerun"))}" target="_blank" rel="noopener">${esc(a.rerun_label)}</a></div>` : a.date_passed ? '<div class="reply">This date has passed</div>' : "");
