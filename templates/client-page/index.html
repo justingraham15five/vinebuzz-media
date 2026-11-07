@@ -91,7 +91,8 @@ $("notices").innerHTML = (D.notices || []).map(n => `<div class="banner ${esc(n.
 
 /* footer help */
 const h = D.support || {};
-$("help").innerHTML = `${h.phone ? `<div>Need help? Text or call <a href="tel:${esc(h.phone.replace(/[^0-9+]/g, ""))}">${esc(h.phone)}</a></div>` : ""}${h.form_url ? `<a href="${esc(h.form_url)}" target="_blank" rel="noopener">Need help? Send us a message</a>` : ""}${h.booking_url ? `<a href="${esc(h.booking_url)}" target="_blank" rel="noopener">Book a quick call</a>` : ""}`;
+const sup = u => `${u}${u.includes("?") ? "&" : "?"}business=${encodeURIComponent(D.business_name || "")}&page=${encodeURIComponent((D.business_name || "") + " VineBUZZ")}&sub=${encodeURIComponent(D.sub_account_id || "")}`;
+$("help").innerHTML = `${h.phone ? `<div>Need help? Text or call <a href="tel:${esc(h.phone.replace(/[^0-9+]/g, ""))}">${esc(h.phone)}</a></div>` : ""}${h.form_url ? `<a href="${esc(sup(h.form_url))}" target="_blank" rel="noopener">Need help? Send us a message</a>` : ""}${h.booking_url ? `<a href="${esc(h.booking_url)}" target="_blank" rel="noopener">Book a quick call</a>` : ""}`;
 
 function vUpcoming() {
   const now = Date.now(); const days = RANGES.find(r => r[0] === range)[2];
