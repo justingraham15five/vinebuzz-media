@@ -12,6 +12,18 @@ header.top .clogo{height:32px;width:auto;max-width:140px;object-fit:contain}
 .help a{color:#fff}
 .acts{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
 .reply{font-size:12px;color:var(--muted);margin-top:6px}
+.thumb{position:relative;cursor:pointer}.thumb .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.ad .title{cursor:pointer}.tap{font-size:11px;color:var(--muted)}
+.src{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:2px 8px;background:#eee;color:#555;margin-bottom:4px}
+.pv-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:flex-start;justify-content:center;z-index:50;overflow:auto;padding:24px 10px}
+.pv{background:#fff;border-radius:10px;max-width:500px;width:100%;box-shadow:0 8px 30px rgba(0,0,0,.3);font-family:Helvetica,Arial,sans-serif;color:#050505}
+.pv-h{display:flex;gap:10px;align-items:center;padding:12px 14px}.pv-av{width:40px;height:40px;border-radius:50%;background:#C1A4CA;object-fit:contain;flex:none}
+.pv-n{font-weight:700;font-size:15px}.pv-t{font-size:12px;color:#65676B}.pv-x{margin-left:auto;border:0;background:#E4E6EB;border-radius:50%;width:34px;height:34px;font-size:18px;cursor:pointer}
+.pv-c{padding:0 14px 10px;font-size:15px;line-height:1.35;white-space:pre-wrap}.pv-c.clip{max-height:7.2em;overflow:hidden}.pv-more{border:0;background:none;color:#65676B;font-weight:600;padding:0 14px 10px;cursor:pointer}
+.pv-m img,.pv-m video{display:block;width:100%;max-height:80vh;object-fit:contain;background:#000}
+.pv-l{display:flex;align-items:center;gap:10px;background:#F0F2F5;padding:10px 14px}.pv-l .d{flex:1;font-size:12px;color:#65676B;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pv-l a{background:#E4E6EB;color:#050505;font-weight:600;font-size:14px;border-radius:6px;padding:8px 12px;text-decoration:none;white-space:nowrap}
+.pv-f{padding:8px 14px 12px;font-size:12px;color:#65676B;border-top:1px solid #E4E6EB}
 </style>
 </head>
 <body>
@@ -35,6 +47,7 @@ header.top .clogo{height:32px;width:auto;max-width:140px;object-fit:contain}
   Powered by Vinedentity
   <img src="../../brand/vinedentity/vinedentity-full-logo-transparent.png" alt="Vinedentity technology &amp; marketing solutions">
 </footer>
+<div class="pv-bg" id="pvbg" role="dialog" aria-modal="true" aria-label="Post preview"><div class="pv" id="pv"></div></div>
 <script>
 (async () => {
 const $ = id => document.getElementById(id);
@@ -59,10 +72,11 @@ function actBtns(a) {
   const ap = form(a, "approve"), ch = form(a, "change");
   return `<div class="acts">${ap ? `<a class="btn primary" href="${esc(ap)}" target="_blank" rel="noopener">Approve</a>` : ""}${ch ? `<a class="btn" href="${esc(ch)}" target="_blank" rel="noopener">Request changes</a>` : ""}</div>`;
 }
-const thumb = a => `<div class="thumb">${a.image ? `<img src="${esc(a.image)}" alt="${esc(a.alt || a.title)}">` : esc(a.type || "Post")}</div>`;
+const thumb = a => `<div class="thumb" data-pv="${esc(a.ad_id)}" title="Tap to preview">${a.image || a.poster ? `<img src="${esc(a.image || a.poster)}" alt="${esc(a.alt || a.title)}">` : esc(a.type || "Post")}${a.video ? '<span class="play">▶</span>' : ""}</div>`;
 const plats = a => (a.platforms || []).map(p => PNAME[p] || p).join(" · ");
 function card(a, cls = "", label = "", extra = "") {
-  return `<div class="ad ${cls}">${thumb(a)}<div class="body">${label}<div class="title">${esc(a.title)} <span class="muted small">${esc(a.ad_id)}</span></div>
+  const src = a.source === "outside" ? `<div class="src">Posted directly on ${esc(plats(a) || "social media")}</div>` : "";
+  return `<div class="ad ${cls}" id="ad-${esc(a.ad_id)}">${thumb(a)}<div class="body">${label}${src}<div class="title" data-pv="${esc(a.ad_id)}">${esc(a.title)} <span class="muted small">${a.source === "outside" ? "" : esc(a.ad_id)}</span> <span class="tap">· Tap to preview</span></div>
     <div class="meta">${a.go_out ? (new Date(a.go_out) < Date.now() ? "Went out " : "Goes out ") + esc(dt(a.go_out)) : ""}${a.platforms?.length ? " · " + esc(plats(a)) : ""}</div>
     ${a.copy ? `<div class="small" style="margin-top:6px;white-space:pre-wrap">${esc(a.copy)}</div>` : ""}
     ${a.issue ? `<div class="banner ${a.issue.level || "red"}" style="margin:8px 0 0">${esc(a.issue.text)}</div>` : ""}${extra}</div></div>`;
@@ -144,13 +158,36 @@ function render() {
   $("tabs").innerHTML = T.map(([k, l]) => `<button class="${k === tab ? "on" : ""}" data-tab="${esc(k)}">${esc(l)}</button>`).join("");
   $("view").innerHTML = tab === "previous" ? vPrevious() : tab === "awaiting" ? vAwaiting() : vUpcoming();
 }
+/* Facebook-style preview */
+function openPv(id) {
+  const a = ads.find(x => x.ad_id === id); if (!a) return false;
+  const name = D.page_name || D.business_name || "";
+  let host = ""; try { host = a.link_url ? new URL(a.link_url).hostname.replace(/^www\./, "") : ""; } catch {}
+  const media = a.video ? `<video src="${esc(a.video)}" ${a.poster || a.image ? `poster="${esc(a.poster || a.image)}"` : ""} controls playsinline preload="metadata"></video>`
+    : a.image ? `<img src="${esc(a.image)}" alt="${esc(a.alt || a.title)}">` : "";
+  const when = a.go_out ? dt(a.go_out) : "";
+  $("pv").innerHTML = `<div class="pv-h">${D.logo ? `<img class="pv-av" src="${esc(D.logo)}" alt="">` : '<div class="pv-av"></div>'}<div><div class="pv-n">${esc(name)}</div><div class="pv-t">${esc(when)}${a.status === "posted" ? "" : " · Preview"} · 🌐</div></div><button class="pv-x" id="pvx" aria-label="Close">✕</button></div>
+    ${a.copy ? `<div class="pv-c${a.copy.length > 280 ? " clip" : ""}" id="pvc">${esc(a.copy)}</div>${a.copy.length > 280 ? '<button class="pv-more" id="pvm">See more</button>' : ""}` : ""}
+    <div class="pv-m">${media}</div>
+    ${a.link_url ? `<div class="pv-l"><div class="d">${esc(host.toUpperCase())}</div><a href="${esc(a.link_url)}" target="_blank" rel="noopener">${esc(a.link_label || "Learn more")}</a></div>` : ""}
+    <div class="pv-f">${a.source === "outside" ? "Posted directly on " + esc(plats(a)) : "How it will look on " + esc(plats(a) || "Facebook")}${a.permalink ? ` · <a href="${esc(a.permalink)}" target="_blank" rel="noopener">View the live post</a>` : ""}</div>`;
+  $("pvbg").style.display = "flex"; return true;
+}
+function closePv() { const v = document.querySelector("#pv video"); if (v) v.pause(); $("pvbg").style.display = "none"; if (location.hash) history.replaceState(null, "", location.pathname + location.search); }
+const hashPv = () => { const m = location.hash.match(/^#ad-([A-Za-z0-9-]+)$/); if (m) openPv(m[1]); };
+window.addEventListener("hashchange", hashPv);
+document.addEventListener("keydown", e => { if (e.key === "Escape") closePv(); });
 document.addEventListener("click", e => {
+  if (e.target.id === "pvx" || e.target.id === "pvbg") { closePv(); return; }
+  if (e.target.id === "pvm") { $("pvc").classList.remove("clip"); e.target.remove(); return; }
+  const pv = e.target.closest("[data-pv]"); if (pv) { openPv(pv.dataset.pv); return; }
   if (e.target.id === "rv") { tab = "awaiting"; render(); return; }
   const t = e.target.closest("[data-tab],[data-range],[data-prange],[data-psort]"); if (!t) return;
   if (t.dataset.tab) tab = t.dataset.tab; if (t.dataset.range) range = t.dataset.range; if (t.dataset.prange) prange = t.dataset.prange; if (t.dataset.psort) psort = t.dataset.psort;
   render();
 });
 render();
+hashPv();
 })();
 </script>
 </body>
