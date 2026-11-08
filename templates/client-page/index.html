@@ -54,7 +54,7 @@ if (D.logo) { $("clogo").src = D.logo; $("clogo").hidden = false; }
 $("exid").textContent = (D.client_code || "ABC") + "-0001";
 
 const ads = D.ads || [];
-const form = (ad, action) => D.approval_form_url ? `${D.approval_form_url}${D.approval_form_url.includes("?") ? "&" : "?"}ad_id=${encodeURIComponent(ad.ad_id)}&client=${encodeURIComponent(D.client_code)}&action=${action}` : null;
+const form = (ad, action) => D.approval_form_url ? `${D.approval_form_url}${D.approval_form_url.includes("?") ? "&" : "?"}vinebuzz_ad_id=${encodeURIComponent(ad.ad_id)}&vinebuzz_client_code=${encodeURIComponent(D.client_code)}&vinebuzz_action=${action}` : null;
 function actBtns(a) {
   const ap = form(a, "approve"), ch = form(a, "change");
   return `<div class="acts">${ap ? `<a class="btn primary" href="${esc(ap)}" target="_blank" rel="noopener">Approve</a>` : ""}${ch ? `<a class="btn" href="${esc(ch)}" target="_blank" rel="noopener">Request changes</a>` : ""}</div>`;
@@ -91,7 +91,7 @@ $("notices").innerHTML = (D.notices || []).map(n => `<div class="banner ${esc(n.
 
 /* footer help */
 const h = D.support || {};
-const sup = u => `${u}${u.includes("?") ? "&" : "?"}business=${encodeURIComponent(D.business_name || "")}&page=${encodeURIComponent((D.business_name || "") + " VineBUZZ")}&sub=${encodeURIComponent(D.sub_account_id || "")}`;
+const sup = u => `${u}${u.includes("?") ? "&" : "?"}vinebuzz_page=${encodeURIComponent((D.business_name || "") + " VineBUZZ")}&vinebuzz_sub_account_id=${encodeURIComponent(D.sub_account_id || "")}`;
 $("help").innerHTML = `${h.phone ? `<div>Need help? Text or call <a href="tel:${esc(h.phone.replace(/[^0-9+]/g, ""))}">${esc(h.phone)}</a></div>` : ""}${h.form_url ? `<a href="${esc(sup(h.form_url))}" target="_blank" rel="noopener">Need help? Send us a message</a>` : ""}${h.booking_url ? `<a href="${esc(h.booking_url)}" target="_blank" rel="noopener">Book a quick call</a>` : ""}`;
 
 function vUpcoming() {
