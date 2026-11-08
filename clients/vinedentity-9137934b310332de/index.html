@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>VineBUZZ</title>
+<link rel="stylesheet" href="../../assets/vinebuzz.css">
+<style>
+header.top .clogo{height:32px;width:auto;max-width:140px;object-fit:contain}
+.help{display:flex;flex-direction:column;gap:6px;align-items:center;margin-bottom:12px;font-size:13px;color:#ddd}
+.help a{color:#fff}
+.acts{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.reply{font-size:12px;color:var(--muted);margin-top:6px}
+.thumb{position:relative;cursor:pointer}.thumb .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.ad .title{cursor:pointer}.tap{font-size:11px;color:var(--muted)}
+.src{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:2px 8px;background:#eee;color:#555;margin-bottom:4px}
+.pv-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:flex-start;justify-content:center;z-index:50;overflow:auto;padding:24px 10px}
+.pv{background:#fff;border-radius:10px;max-width:500px;width:100%;box-shadow:0 8px 30px rgba(0,0,0,.3);font-family:Helvetica,Arial,sans-serif;color:#050505}
+.pv-h{display:flex;gap:10px;align-items:center;padding:12px 14px}.pv-av{width:40px;height:40px;border-radius:50%;background:#C1A4CA;object-fit:contain;flex:none}
+.pv-n{font-weight:700;font-size:15px}.pv-t{font-size:12px;color:#65676B}.pv-x{margin-left:auto;border:0;background:#E4E6EB;border-radius:50%;width:34px;height:34px;font-size:18px;cursor:pointer}
+.pv-c{padding:0 14px 10px;font-size:15px;line-height:1.35;white-space:pre-wrap}.pv-c.clip{max-height:7.2em;overflow:hidden}.pv-more{border:0;background:none;color:#65676B;font-weight:600;padding:0 14px 10px;cursor:pointer}
+.pv-m img,.pv-m video{display:block;width:100%;max-height:80vh;object-fit:contain;background:#000}
+.pv-l{display:flex;align-items:center;gap:10px;background:#F0F2F5;padding:10px 14px}.pv-l .d{flex:1;font-size:12px;color:#65676B;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pv-l a{background:#E4E6EB;color:#050505;font-weight:600;font-size:14px;border-radius:6px;padding:8px 12px;text-decoration:none;white-space:nowrap}
+.pv-f{padding:8px 14px 12px;font-size:12px;color:#65676B;border-top:1px solid #E4E6EB}
+</style>
+</head>
+<body>
+<header class="top">
+  <img class="v" src="../../brand/vinedentity/vinedentity-v-icon.png" alt="Vinedentity">
+  <div><h1 id="bizname">VineBUZZ</h1><div class="sub">Your upcoming posts</div></div>
+  <div class="grow"></div>
+  <img class="clogo" id="clogo" alt="" hidden>
+</header>
+<main>
+  <div id="pills" class="row" style="margin-bottom:10px"></div>
+  <div id="banner"></div>
+  <div id="notices"></div>
+  <div class="tabs" id="tabs"></div>
+  <div id="ctrl"></div>
+  <div id="view"><div class="empty">Loading your posts…</div></div>
+  <p class="small muted" style="text-align:center;margin-top:18px">Or just reply to our text with <b>APPROVE</b> and the ad number, for example APPROVE <span id="exid">ABC-0001</span>.</p>
+</main>
+<footer class="foot">
+  <div class="help" id="help"></div>
+  Powered by Vinedentity
+  <img src="../../brand/vinedentity/vinedentity-full-logo-transparent.png" alt="Vinedentity technology &amp; marketing solutions">
+</footer>
+<div class="pv-bg" id="pvbg" role="dialog" aria-modal="true" aria-label="Post preview"><div class="pv" id="pv"></div></div>
+<script>
+(async () => {
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const PNAME = {facebook:"Facebook",instagram:"Instagram",linkedin:"LinkedIn",tiktok:"TikTok",x:"X",google_business:"Google Business",youtube:"YouTube",pinterest:"Pinterest"};
+const RANGES = [["today","Today",0],["7","7 days",7],["30","30 days",30],["90","90 days",90],["365","1 year",365]];
+const PREV = [["7","7 days",7],["30","30 days",30],["90","90 days",90],["365","1 year",365]];
+let D, tab = "all", range = "7", prange = "30", psort = "top";
+const dt = s => new Date(s).toLocaleString([], { weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+
+try { const r = await fetch("data.json", { cache: "no-store" }); D = await r.json(); }
+catch { $("view").innerHTML = '<div class="empty">This page is updating. Please check back in a few minutes.</div>'; return; }
+
+document.title = `${D.business_name} VineBUZZ`;
+$("bizname").textContent = `${D.business_name} VineBUZZ`;
+if (D.logo) { $("clogo").src = D.logo; $("clogo").hidden = false; }
+$("exid").textContent = (D.client_code || "ABC") + "-0001";
+
+const ads = D.ads || [];
+const form = (ad, action) => D.approval_form_url ? `${D.approval_form_url}${D.approval_form_url.includes("?") ? "&" : "?"}vinebuzz_ad_id=${encodeURIComponent(ad.ad_id)}&vinebuzz_client_code=${encodeURIComponent(D.client_code)}&vinebuzz_action=${action}` : null;
+function actBtns(a) {
+  const ap = form(a, "approve"), ch = form(a, "change");
+  return `<div class="acts">${ap ? `<a class="btn primary" href="${esc(ap)}" target="_blank" rel="noopener">Approve</a>` : ""}${ch ? `<a class="btn" href="${esc(ch)}" target="_blank" rel="noopener">Request changes</a>` : ""}</div>`;
+}
+const thumb = a => `<div class="thumb" data-pv="${esc(a.ad_id)}" title="Tap to preview">${a.image || a.poster ? `<img src="${esc(a.image || a.poster)}" alt="${esc(a.alt || a.title)}">` : esc(a.type || "Post")}${a.video ? '<span class="play">▶</span>' : ""}</div>`;
+const plats = a => (a.platforms || []).map(p => PNAME[p] || p).join(" · ");
+function card(a, cls = "", label = "", extra = "") {
+  const src = a.source === "outside" ? `<div class="src">Posted directly on ${esc(plats(a) || "social media")}</div>` : "";
+  return `<div class="ad ${cls}" id="ad-${esc(a.ad_id)}">${thumb(a)}<div class="body">${label}${src}<div class="title" data-pv="${esc(a.ad_id)}">${esc(a.title)} <span class="muted small">${a.source === "outside" ? "" : esc(a.ad_id)}</span> <span class="tap">· Tap to preview</span></div>
+    <div class="meta">${a.go_out ? (new Date(a.go_out) < Date.now() ? "Went out " : "Goes out ") + esc(dt(a.go_out)) : ""}${a.platforms?.length ? " · " + esc(plats(a)) : ""}</div>
+    ${a.copy ? `<div class="small" style="margin-top:6px;white-space:pre-wrap">${esc(a.copy)}</div>` : ""}
+    ${a.issue ? `<div class="banner ${a.issue.level || "red"}" style="margin:8px 0 0">${esc(a.issue.text)}</div>` : ""}${extra}</div></div>`;
+}
+function needsApproval(a) {
+  let h = card(a, "needs", `<div class="lbl red">Needs approval by ${esc(dt(a.reply_by))}</div>`, actBtns(a));
+  const b = ads.find(x => x.ad_id === a.backup_id);
+  if (b) { const ub = form(a, "use_backup"); h += card(b, "backup", `<div class="lbl">Backup: posts instead if not approved by ${esc(dt(a.reply_by))}</div>`, ub ? `<div class="acts"><a class="btn" href="${esc(ub)}" target="_blank" rel="noopener">Use backup instead</a></div>` : ""); }
+  return h;
+}
+
+/* status pills + banners */
+function apPill() {
+  const ap = D.autopilot || {}; const p = Object.values(ap.platforms || {});
+  if (!ap.master || (p.length && p.every(v => !v))) return '<span class="pill red">Autopilot: OFF</span>';
+  if (p.length && p.some(v => !v)) return `<span class="pill yellow">Autopilot: PARTIAL · on for ${p.filter(Boolean).length} of ${p.length}</span>`;
+  return '<span class="pill green">Autopilot: ON</span>';
+}
+$("pills").innerHTML = (D.test_mode ? '<span class="pill orange">TEST MODE</span>' : '<span class="pill green">LIVE</span>') + apPill()
+  + (D.autopilot && (D.autopilot.master === false || Object.values(D.autopilot.platforms || {}).some(v => !v)) && !(D.notices || []).some(n => n.sub) ? `<span class="small muted"><i>Want them back on? Reach out to the Vinedentity team using the contact options at the bottom of this page.</i></span>` : "");
+const waiting = ads.filter(a => a.status === "awaiting").sort((a, b) => new Date(a.go_out) - new Date(b.go_out));
+$("banner").innerHTML = waiting.length
+  ? `<div class="banner red"><b>${waiting.length} ad${waiting.length > 1 ? "s" : ""} need${waiting.length > 1 ? "" : "s"} your approval</b><button class="btn" id="rv">Review &amp; approve</button></div>`
+  : '<div class="banner green">All caught up. Everything\'s approved.</div>';
+$("notices").innerHTML = (D.notices || []).map(n => `<div class="banner ${esc(n.level || "orange")}"><div>${esc(n.text)}${n.sub ? `<div class="small"><i>${esc(n.sub)}</i></div>` : ""}</div></div>`).join("");
+
+/* footer help */
+const h = D.support || {};
+const sup = u => `${u}${u.includes("?") ? "&" : "?"}vinebuzz_page=${encodeURIComponent((D.business_name || "") + " VineBUZZ")}&vinebuzz_sub_account_id=${encodeURIComponent(D.sub_account_id || "")}`;
+$("help").innerHTML = `${h.phone ? `<div>Need help? Text or call <a href="tel:${esc(h.phone.replace(/[^0-9+]/g, ""))}">${esc(h.phone)}</a></div>` : ""}${h.form_url ? `<a href="${esc(sup(h.form_url))}" target="_blank" rel="noopener">Need help? Send us a message</a>` : ""}${h.booking_url ? `<a href="${esc(h.booking_url)}" target="_blank" rel="noopener">Book a quick call</a>` : ""}`;
+
+function vUpcoming() {
+  const now = Date.now(); const days = RANGES.find(r => r[0] === range)[2];
+  const end = range === "today" ? new Date(new Date().setHours(23, 59, 59, 999)).getTime() : now + days * 864e5;
+  const isType = tab !== "all" && tab !== "today" && tab !== "awaiting";
+  const lim = isType && ["Birthdays","Events"].includes(tab) ? Math.max(end, now + 30 * 864e5) : (tab === "today" ? new Date(new Date().setHours(23, 59, 59, 999)).getTime() : end);
+  const list = ads.filter(a => a.go_out && !a.backup_for && ["scheduled","awaiting","approved"].includes(a.status) && new Date(a.go_out).getTime() >= now - 36e5 && new Date(a.go_out).getTime() <= lim && (!isType || a.type === tab))
+    .sort((a, b) => new Date(a.go_out) - new Date(b.go_out));
+  $("ctrl").innerHTML = tab === "today" ? "" : `<div class="seg" style="margin-bottom:12px">${RANGES.map(r => `<button class="${r[0] === range ? "on" : ""}" data-range="${r[0]}">${r[1]}</button>`).join("")}</div>`;
+  return list.length ? list.map(a => a.status === "awaiting" ? needsApproval(a) : card(a)).join("") : '<div class="empty">No posts in this range.</div>';
+}
+function vAwaiting() { $("ctrl").innerHTML = ""; return waiting.length ? waiting.map(needsApproval).join("") : '<div class="empty">Nothing needs your approval right now.</div>'; }
+function mmss(n) { n = Math.round(n); return `${Math.floor(n / 60)}:${String(n % 60).padStart(2, "0")}`; }
+function score(a) { const p = a.performance || {}; return (p.reactions || 0) + (p.comments || 0) + (p.shares || 0); }
+function vPrevious() {
+  const days = PREV.find(r => r[0] === prange)[2]; const from = Date.now() - days * 864e5;
+  const list = ads.filter(a => a.go_out && ["posted","not_ran","test_not_posted"].includes(a.status) && new Date(a.go_out).getTime() >= from && new Date(a.go_out).getTime() <= Date.now());
+  const repl = new Set(list.map(a => a.replaced_with).filter(Boolean));
+  for (let i = list.length - 1; i >= 0; i--) if (repl.has(list[i].ad_id)) list.splice(i, 1);
+  const hasPerf = list.some(a => a.performance); const sort = hasPerf ? psort : "newest";
+  const mkey = a => { const d = new Date(a.go_out); return d.getFullYear() * 12 + d.getMonth(); };
+  list.sort((a, b) => mkey(b) - mkey(a) || (sort === "top" ? score(b) - score(a) : 0) || new Date(b.go_out) - new Date(a.go_out));
+  const posted = ads.filter(a => a.status === "posted" && a.performance && a.go_out && new Date(a.go_out).getTime() >= from && new Date(a.go_out).getTime() <= Date.now());
+  const tot = k => posted.reduce((t, a) => t + (a.performance[k] || 0), 0), has = k => posted.some(a => a.performance[k] != null);
+  const stat = (v, l) => `<div class="stat"><b>${v}</b><span>${l}</span></div>`;
+  const sumHtml = posted.length ? `<div class="card insights"><div class="stats">${stat(tot("reactions"), "reactions")}${stat(tot("comments"), "comments")}${stat(tot("shares"), "shares")}${has("reach") ? stat(tot("reach"), "people reached") : ""}${has("views") ? stat(tot("views"), "video views") : ""}</div></div>` : "";
+  $("ctrl").innerHTML = `<div class="row" style="margin-bottom:12px"><div class="seg">${PREV.map(r => `<button class="${r[0] === prange ? "on" : ""}" data-prange="${r[0]}">${r[1]}</button>`).join("")}</div>
+    <div class="seg"><button class="${sort === "top" ? "on" : ""}" data-psort="top" ${hasPerf ? "" : "disabled"}>Top performing</button><button class="${sort === "newest" ? "on" : ""}" data-psort="newest">Newest first</button></div>${hasPerf ? "" : '<span class="small muted">Performance data unavailable</span>'}</div>`;
+  if (!list.length) return '<div class="empty">No posts in this range yet.</div>';
+  let month = "", rank = 0;
+  return sumHtml + list.map(a => {
+    let out = "";
+    const m = new Date(a.go_out).toLocaleString([], { month: "long", year: "numeric" }); if (m !== month) { month = m; rank = 0; out += `<h3>${esc(m)}</h3>`; }
+    if (sort === "top" && a.status === "posted" && a.performance) out += `<div class="small muted" style="margin:0 0 4px 2px"><b>#${++rank}</b> in ${esc(m)}</div>`;
+    const p = a.performance;
+    const perf = p ? `<div class="small muted" style="margin-top:6px">👍 ${p.reactions ?? 0} reactions · 💬 ${p.comments ?? 0} · ↗ ${p.shares ?? 0}${p.reach != null ? ` · 👁 ${p.reach} reach` : ""}${p.views != null ? ` · ▶ ${p.views} views` : ""}${p.avg_watch_sec != null ? ` · ⏱ avg watch ${mmss(p.avg_watch_sec)}` : ""}${p.nonfollower_reach != null ? ` · 🆕 ${p.nonfollower_reach} new people reached` : ""}</div>` : "";
+    if (a.status !== "posted") {
+      const why = a.status === "test_not_posted" ? "Did not post. Reason: Test mode." : a.not_ran_reason === "technical" ? "Did not run: technical issue" : a.not_ran_reason === "time_passed" ? "Did not run: time passed" : "NOT RAN - Not approved on time";
+      out += card(a, "notran", `<div class="lbl red">${esc(why)}</div>`, a.rerun_label && form(a, "rerun") ? `<div class="acts"><a class="btn" href="${esc(form(a, "rerun"))}" target="_blank" rel="noopener">${esc(a.rerun_label)}</a></div>` : a.date_passed ? '<div class="reply">This date has passed</div>' : "");
+      const b = ads.find(x => x.ad_id === a.replaced_with); if (b) out += card(b, "", '<div class="lbl">Ran in its place</div>', b.performance ? `<div class="small muted" style="margin-top:6px">👍 ${b.performance.reactions ?? 0} · 💬 ${b.performance.comments ?? 0} · ↗ ${b.performance.shares ?? 0}</div>` : "");
+      return out;
+    }
+    return out + card(a, "", "", perf);
+  }).join("");
+}
+function render() {
+  const types = [...new Set(ads.filter(a => a.go_out && !a.backup_for && ["scheduled","awaiting","approved"].includes(a.status)).map(a => a.type).filter(Boolean))].sort();
+  const T = [["all","All"],["today","Today"],...types.map(t => [t, t]),["awaiting", `Awaiting Approval${waiting.length ? ` (${waiting.length})` : ""}`],["previous","Previous"]];
+  $("tabs").innerHTML = T.map(([k, l]) => `<button class="${k === tab ? "on" : ""}" data-tab="${esc(k)}">${esc(l)}</button>`).join("");
+  $("view").innerHTML = tab === "previous" ? vPrevious() : tab === "awaiting" ? vAwaiting() : vUpcoming();
+}
+/* Facebook-style preview */
+function openPv(id) {
+  const a = ads.find(x => x.ad_id === id); if (!a) return false;
+  const name = D.page_name || D.business_name || "";
+  let host = ""; try { host = a.link_url ? new URL(a.link_url).hostname.replace(/^www\./, "") : ""; } catch {}
+  const media = a.video ? `<video src="${esc(a.video)}" ${a.poster || a.image ? `poster="${esc(a.poster || a.image)}"` : ""} controls playsinline preload="metadata"></video>`
+    : a.image ? `<img src="${esc(a.image)}" alt="${esc(a.alt || a.title)}">` : "";
+  const when = a.go_out ? dt(a.go_out) : "";
+  $("pv").innerHTML = `<div class="pv-h">${D.logo ? `<img class="pv-av" src="${esc(D.logo)}" alt="">` : '<div class="pv-av"></div>'}<div><div class="pv-n">${esc(name)}</div><div class="pv-t">${esc(when)}${a.status === "posted" ? "" : " · Preview"} · 🌐</div></div><button class="pv-x" id="pvx" aria-label="Close">✕</button></div>
+    ${a.copy ? `<div class="pv-c${a.copy.length > 280 ? " clip" : ""}" id="pvc">${esc(a.copy)}</div>${a.copy.length > 280 ? '<button class="pv-more" id="pvm">See more</button>' : ""}` : ""}
+    <div class="pv-m">${media}</div>
+    ${a.link_url ? `<div class="pv-l"><div class="d">${esc(host.toUpperCase())}</div><a href="${esc(a.link_url)}" target="_blank" rel="noopener">${esc(a.link_label || "Learn more")}</a></div>` : ""}
+    <div class="pv-f">${a.source === "outside" ? "Posted directly on " + esc(plats(a)) : "How it will look on " + esc(plats(a) || "Facebook")}${a.permalink ? ` · <a href="${esc(a.permalink)}" target="_blank" rel="noopener">View the live post</a>` : ""}</div>`;
+  $("pvbg").style.display = "flex"; return true;
+}
+function closePv() { const v = document.querySelector("#pv video"); if (v) v.pause(); $("pvbg").style.display = "none"; if (location.hash) history.replaceState(null, "", location.pathname + location.search); }
+const hashPv = () => { const m = location.hash.match(/^#ad-([A-Za-z0-9-]+)$/); if (m) openPv(m[1]); };
+window.addEventListener("hashchange", hashPv);
+document.addEventListener("keydown", e => { if (e.key === "Escape") closePv(); });
+document.addEventListener("click", e => {
+  if (e.target.id === "pvx" || e.target.id === "pvbg") { closePv(); return; }
+  if (e.target.id === "pvm") { $("pvc").classList.remove("clip"); e.target.remove(); return; }
+  const pv = e.target.closest("[data-pv]"); if (pv) { openPv(pv.dataset.pv); return; }
+  if (e.target.id === "rv") { tab = "awaiting"; render(); return; }
+  const t = e.target.closest("[data-tab],[data-range],[data-prange],[data-psort]"); if (!t) return;
+  if (t.dataset.tab) tab = t.dataset.tab; if (t.dataset.range) range = t.dataset.range; if (t.dataset.prange) prange = t.dataset.prange; if (t.dataset.psort) psort = t.dataset.psort;
+  render();
+});
+render();
+hashPv();
+})();
+</script>
+</body>
+</html>

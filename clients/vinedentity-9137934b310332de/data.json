@@ -1,0 +1,13 @@
+{
+  "business_name": "Vinedentity",
+  "page_name": "Vinedentity VineBUZZ",
+  "client_code": "VINE",
+  "sub_account_id": "DAPW7RzYt1rSAY1QlJFu",
+  "test_mode": true,
+  "logo": "../../brand/vinedentity/vinedentity-v-icon.png",
+  "autopilot": {"master": true, "platforms": {"facebook": true, "instagram": true, "linkedin": true, "tiktok": true, "youtube": true, "google_business": true}},
+  "approval_form_url": "https://link.vinedentity.com/widget/form/DRay5nnQkfwbcmpkT811",
+  "support": {"phone": "(833) 716-8463", "form_url": "https://link.vinedentity.com/widget/form/L7aB5EW8g0buFzaCRk4D", "booking_url": "https://link.vinedentity.com/widget/booking/3YUYYmsJFIaTxbQb1GB9"},
+  "notices": [],
+  "ads": []
+}
