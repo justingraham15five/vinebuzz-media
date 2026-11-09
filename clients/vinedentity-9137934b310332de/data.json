@@ -1,47 +1,226 @@
 {
-  "business_name": "Vinedentity",
-  "page_name": "Vinedentity VineBUZZ",
-  "client_code": "VINE",
-  "sub_account_id": "DAPW7RzYt1rSAY1QlJFu",
-  "test_mode": false,
-  "logo": "../../brand/vinedentity/vinedentity-v-icon.png",
-  "autopilot": {
-    "master": true,
-    "platforms": {
-      "facebook": true,
-      "instagram": true,
-      "linkedin": true,
-      "tiktok": true,
-      "youtube": true,
-      "google_business": true
-    }
+ "business_name": "Vinedentity",
+ "page_name": "Vinedentity VineBUZZ",
+ "client_code": "VINE",
+ "sub_account_id": "DAPW7RzYt1rSAY1QlJFu",
+ "test_mode": false,
+ "logo": "../../brand/vinedentity/vinedentity-v-icon.png",
+ "autopilot": {
+  "master": true,
+  "platforms": {
+   "facebook": true,
+   "instagram": true,
+   "linkedin": true,
+   "tiktok": true,
+   "youtube": true,
+   "google_business": true
+  }
+ },
+ "approval_form_url": "https://link.vinedentity.com/widget/form/DRay5nnQkfwbcmpkT811",
+ "support": {
+  "phone": "(833) 716-8463",
+  "form_url": "https://link.vinedentity.com/widget/form/L7aB5EW8g0buFzaCRk4D",
+  "booking_url": "https://link.vinedentity.com/widget/booking/3YUYYmsJFIaTxbQb1GB9"
+ },
+ "notices": [],
+ "ads": [
+  {
+   "ad_id": "VINE-0001",
+   "title": "Plan December's posts now",
+   "type": "Tips",
+   "platforms": [
+    "facebook",
+    "instagram",
+    "tiktok"
+   ],
+   "go_out": "2026-11-13T18:30:00-05:00",
+   "status": "scheduled",
+   "copy": "𝗣𝗹𝗮𝗻 𝗗𝗲𝗰𝗲𝗺𝗯𝗲𝗿'𝘀 𝗽𝗼𝘀𝘁𝘀 𝗻𝗼𝘄.\n\nDecember gets busy fast. A little planning this weekend keeps your page active while you're busy serving customers.\n\n1️⃣ Pick the dates that matter to your business\n2️⃣ Write your posts once, then schedule them all\n3️⃣ Leave room for real moments from your team\n\nWant help mapping it out? Book a free VineCOVERY call: https://link.vinedentity.com/widget/booking/3YUYYmsJFIaTxbQb1GB9\n\n#SmallBusiness #SocialMediaTips #VineBUZZ",
+   "image": "media/graphics/2026-11/PlanDecember-Tip-VINE-0001-feed.jpg",
+   "video": "media/graphics/2026-11/PlanDecember-Tip-VINE-0001-vertical.mp4",
+   "poster": "media/graphics/2026-11/PlanDecember-Tip-VINE-0001-poster.jpg",
+   "alt": "Vinedentity graphic: Plan December's posts now. 1 Pick the dates that matter. 2 Write once, schedule them all. 3 Leave room for real moments. Book a free VineCOVERY call.",
+   "link_url": "https://link.vinedentity.com/widget/booking/3YUYYmsJFIaTxbQb1GB9",
+   "link_label": "Book Now"
   },
-  "approval_form_url": "https://link.vinedentity.com/widget/form/DRay5nnQkfwbcmpkT811",
-  "support": {
-    "phone": "(833) 716-8463",
-    "form_url": "https://link.vinedentity.com/widget/form/L7aB5EW8g0buFzaCRk4D",
-    "booking_url": "https://link.vinedentity.com/widget/booking/3YUYYmsJFIaTxbQb1GB9"
+  {
+   "ad_id": "IG-18183447109434658",
+   "title": "What's your biggest business time-waster?",
+   "type": "Post",
+   "platforms": [
+    "instagram"
+   ],
+   "go_out": "2026-11-06T18:36:16-05:00",
+   "status": "posted",
+   "copy": "Running a business means wearing a lot of hats, but some tasks seem to take up WAY more time than they should! 😅\n\nWe're curious… What's your biggest business time-waster?\n\nA. Responding to emails and messages\nB. Scheduling appointments\nC. Following up with leads\nD. Organizing customer information\nE. ALL OF THE ABOVE!\n\nHere's the good news: You don't have to do everything manually!\n\nWith the right CRM and automation tools, you can spend less time on repetitive tasks and more time doing what you love — growing your business.\n\nDrop your answer (A, B, C, D, or E) in the comments!\n\nWe'd love to hear what takes up the most time in your business!\n\n#Vinedentity #SmallBusinessOwners #BusinessAutomation #CRM #WorkSmarterNotHarder #TimeManagement #EntrepreneurLife #SmallBusinessGrowth #BusinessSystems",
+   "permalink": "https://www.instagram.com/p/DfazQCICcOW/",
+   "source": "outside",
+   "performance": {
+    "reactions": 0,
+    "comments": 0,
+    "reach": 1
+   }
   },
-  "notices": [],
-  "ads": [
-    {
-      "ad_id": "VINE-0001",
-      "title": "Plan December's posts now",
-      "type": "Tips",
-      "platforms": [
-        "facebook",
-        "instagram",
-        "tiktok"
-      ],
-      "go_out": "2026-11-13T18:30:00-05:00",
-      "status": "scheduled",
-      "copy": "𝗣𝗹𝗮𝗻 𝗗𝗲𝗰𝗲𝗺𝗯𝗲𝗿'𝘀 𝗽𝗼𝘀𝘁𝘀 𝗻𝗼𝘄.\n\nDecember gets busy fast. A little planning this weekend keeps your page active while you're busy serving customers.\n\n1️⃣ Pick the dates that matter to your business\n2️⃣ Write your posts once, then schedule them all\n3️⃣ Leave room for real moments from your team\n\nWant help mapping it out? Book a free VineCOVERY call: https://link.vinedentity.com/widget/booking/3YUYYmsJFIaTxbQb1GB9\n\n#SmallBusiness #SocialMediaTips #VineBUZZ",
-      "image": "media/graphics/2026-11/PlanDecember-Tip-VINE-0001-feed.jpg",
-      "video": "media/graphics/2026-11/PlanDecember-Tip-VINE-0001-vertical.mp4",
-      "poster": "media/graphics/2026-11/PlanDecember-Tip-VINE-0001-poster.jpg",
-      "alt": "Vinedentity graphic: Plan December's posts now. 1 Pick the dates that matter. 2 Write once, schedule them all. 3 Leave room for real moments. Book a free VineCOVERY call.",
-      "link_url": "https://link.vinedentity.com/widget/booking/3YUYYmsJFIaTxbQb1GB9",
-      "link_label": "Book Now"
-    }
-  ]
+  {
+   "ad_id": "FB-2004620040895027",
+   "title": "What's your biggest business time-waster?",
+   "type": "Post",
+   "platforms": [
+    "facebook"
+   ],
+   "go_out": "2026-11-06T18:36:05-05:00",
+   "status": "posted",
+   "copy": "Running a business means wearing a lot of hats, but some tasks seem to take up WAY more time than they should! 😅\n\nWe're curious… What's your biggest business time-waster?\n\nA. Responding to emails and messages\nB. Scheduling appointments\nC. Following up with leads\nD. Organizing customer information\nE. ALL OF THE ABOVE!\n\nHere's the good news: You don't have to do everything manually!\n\nWith the right CRM and automation tools, you can spend less time on repetitive tasks and more time doing what you love — growing your business.\n\nDrop your answer (A, B, C, D, or E) in the comments!\n\nWe'd love to hear what takes up the most time in your business!\n\n#Vinedentity #SmallBusinessOwners #BusinessAutomation #CRM #WorkSmarterNotHarder #TimeManagement #EntrepreneurLife #SmallBusinessGrowth #BusinessSystems",
+   "permalink": "https://www.facebook.com/482370215869902_2004620040895027",
+   "source": "outside",
+   "performance": {
+    "reactions": 2,
+    "comments": 0,
+    "views": 4
+   }
+  },
+  {
+   "ad_id": "IG-18013983011766626",
+   "title": "Posting isn't a strategy. Consistency is.",
+   "type": "Promotions",
+   "platforms": [
+    "instagram"
+   ],
+   "go_out": "2026-11-05T09:03:00-05:00",
+   "status": "posted",
+   "copy": "📣 𝗣𝗼𝘀𝘁𝗶𝗻𝗴 𝗶𝘀𝗻'𝘁 𝗮 𝘀𝘁𝗿𝗮𝘁𝗲𝗴𝘆. 𝗖𝗼𝗻𝘀𝗶𝘀𝘁𝗲𝗻𝗰𝘆 𝗶𝘀.\n\nRandom posts don't build a brand. A plan does.\n\n✅ Content that sounds like your brand\n📈 A plan that keeps you showing up\n\n📲 Call or text Vinedentity at 𝟴𝟯𝟯.𝟳𝟭𝟲.𝗩𝗜𝗡𝗘 to get your system live this week.\n\n#VineBUZZ #SocialMediaMarketing #SmallBusiness #CSRA",
+   "permalink": "https://www.instagram.com/p/DfXM2cDG4Lv/",
+   "source": "outside",
+   "performance": {
+    "reactions": 0,
+    "comments": 0,
+    "reach": 1
+   }
+  },
+  {
+   "ad_id": "FB-2002962641060767",
+   "title": "Posting isn't a strategy. Consistency is.",
+   "type": "Promotions",
+   "platforms": [
+    "facebook"
+   ],
+   "go_out": "2026-11-05T09:02:07-05:00",
+   "status": "posted",
+   "copy": "📣 𝗣𝗼𝘀𝘁𝗶𝗻𝗴 𝗶𝘀𝗻'𝘁 𝗮 𝘀𝘁𝗿𝗮𝘁𝗲𝗴𝘆. 𝗖𝗼𝗻𝘀𝗶𝘀𝘁𝗲𝗻𝗰𝘆 𝗶𝘀.\n\nRandom posts don't build a brand. A plan does.\n\n✅ Content that sounds like your brand\n📈 A plan that keeps you showing up\n\n📲 Call or text Vinedentity at 𝟴𝟯𝟯.𝟳𝟭𝟲.𝗩𝗜𝗡𝗘 to get your system live this week.\n\n#VineBUZZ #SocialMediaMarketing #SmallBusiness #CSRA",
+   "permalink": "https://www.facebook.com/482370215869902_2002962641060767",
+   "source": "outside",
+   "performance": {
+    "reactions": 2,
+    "comments": 0,
+    "views": 16
+   }
+  },
+  {
+   "ad_id": "IG-18137211889659024",
+   "title": "3 Signs You've Outgrown Your Spreadsheet!",
+   "type": "Tips",
+   "platforms": [
+    "instagram"
+   ],
+   "go_out": "2026-11-04T11:05:40-05:00",
+   "status": "posted",
+   "copy": "3 Signs You've Outgrown Your Spreadsheet!\n\nSpreadsheets are great for keeping track of information… but are they keeping up with your business?\n\nAs your business grows, the systems that worked in the beginning might actually be slowing you down.\n\nHere are 3 signs it's time for an upgrade:\n\n1. You're constantly searching for customer information. Important details are scattered across different files, emails, and messages.\n\n2. Your follow-ups depend on your memory. When business gets busy, potential customers can slip through the cracks.\n\n3. You're losing track of leads. You're not always sure who's interested, who needs a follow-up, or who's ready to buy.\n\n𝗧𝗵𝗲 𝘀𝗼𝗹𝘂𝘁𝗶𝗼𝗻? A CRM that works WITH your business, not against it.\n\nWith the right system, you can organize customer information, automate follow-ups, and keep track of opportunities — all in one place.\n\nYour business is growing. Your systems should grow with it.\n\n📩 Ready to move beyond spreadsheets? Message Vinedentity and let's talk about building a system that supports your growth!\n\nCall or text Vinedentity at 𝟴𝟯𝟯.𝟳𝟭𝟲.𝗩𝗜𝗡𝗘 to get your system live this week.\n\n#Vinedentity #CRM #BusinessAutomation #SmallBusinessGrowth #LeadManagement #WorkSmarter #BusinessSystems #CustomerRelationshipManagement #EntrepreneurTips #WebsiteDesign",
+   "permalink": "https://www.instagram.com/p/DfU2F-vlZs1/",
+   "source": "outside",
+   "performance": {
+    "reactions": 0,
+    "comments": 0,
+    "reach": 2
+   }
+  },
+  {
+   "ad_id": "FB-2001885641168467",
+   "title": "3 Signs You've Outgrown Your Spreadsheet!",
+   "type": "Tips",
+   "platforms": [
+    "facebook"
+   ],
+   "go_out": "2026-11-04T11:04:07-05:00",
+   "status": "posted",
+   "copy": "3 Signs You've Outgrown Your Spreadsheet!\n\nSpreadsheets are great for keeping track of information… but are they keeping up with your business?\n\nAs your business grows, the systems that worked in the beginning might actually be slowing you down.\n\nHere are 3 signs it's time for an upgrade:\n\n1. You're constantly searching for customer information. Important details are scattered across different files, emails, and messages.\n\n2. Your follow-ups depend on your memory. When business gets busy, potential customers can slip through the cracks.\n\n3. You're losing track of leads. You're not always sure who's interested, who needs a follow-up, or who's ready to buy.\n\n𝗧𝗵𝗲 𝘀𝗼𝗹𝘂𝘁𝗶𝗼𝗻? A CRM that works WITH your business, not against it.\n\nWith the right system, you can organize customer information, automate follow-ups, and keep track of opportunities — all in one place.\n\nYour business is growing. Your systems should grow with it.\n\n📩 Ready to move beyond spreadsheets? Message Vinedentity and let's talk about building a system that supports your growth!\n\nCall or text Vinedentity at 𝟴𝟯𝟯.𝟳𝟭𝟲.𝗩𝗜𝗡𝗘 to get your system live this week.\n\n#Vinedentity #CRM #BusinessAutomation #SmallBusinessGrowth #LeadManagement #WorkSmarter #BusinessSystems #CustomerRelationshipManagement #EntrepreneurTips #WebsiteDesign",
+   "permalink": "https://www.facebook.com/482370215869902_2001885641168467",
+   "source": "outside",
+   "performance": {
+    "reactions": 0,
+    "comments": 0,
+    "views": 14
+   }
+  },
+  {
+   "ad_id": "IG-18138415906655469",
+   "title": "Missed call? Text back in seconds.",
+   "type": "Promotions",
+   "platforms": [
+    "instagram"
+   ],
+   "go_out": "2026-11-04T09:03:42-05:00",
+   "status": "posted",
+   "copy": "📞 𝗠𝗶𝘀𝘀𝗲𝗱 𝗰𝗮𝗹𝗹? 𝗧𝗲𝘅𝘁 𝗯𝗮𝗰𝗸 𝗶𝗻 𝘀𝗲𝗰𝗼𝗻𝗱𝘀.\n\nYou can't answer every call. VineHUB makes sure every caller still hears from you.\n\n✅ Automatic text back on every missed call\n⚡ Leads stay warm while you finish the job\n\n🚫 𝗡𝗼 𝗰𝗵𝗮𝘀𝗶𝗻𝗴. 𝗡𝗼 𝗳𝗼𝗿𝗴𝗲𝘁𝘁𝗶𝗻𝗴. 𝗡𝗼 𝗺𝗶𝘀𝘀𝗲𝗱 𝗹𝗲𝗮𝗱𝘀.\n\n📲 Call or text Vinedentity at 𝟴𝟯𝟯.𝟳𝟭𝟲.𝗩𝗜𝗡𝗘 to get your system live this week.\n\n#VineHUB #SmallBusiness #CRM #CSRA",
+   "permalink": "https://www.instagram.com/p/DfUoIrLoHUS/",
+   "source": "outside",
+   "performance": {
+    "reactions": 0,
+    "comments": 0,
+    "reach": 1
+   }
+  },
+  {
+   "ad_id": "FB-2001772017846496",
+   "title": "Missed call? Text back in seconds.",
+   "type": "Promotions",
+   "platforms": [
+    "facebook"
+   ],
+   "go_out": "2026-11-04T09:02:14-05:00",
+   "status": "posted",
+   "copy": "📞 𝗠𝗶𝘀𝘀𝗲𝗱 𝗰𝗮𝗹𝗹? 𝗧𝗲𝘅𝘁 𝗯𝗮𝗰𝗸 𝗶𝗻 𝘀𝗲𝗰𝗼𝗻𝗱𝘀.\n\nYou can't answer every call. VineHUB makes sure every caller still hears from you.\n\n✅ Automatic text back on every missed call\n⚡ Leads stay warm while you finish the job\n\n🚫 𝗡𝗼 𝗰𝗵𝗮𝘀𝗶𝗻𝗴. 𝗡𝗼 𝗳𝗼𝗿𝗴𝗲𝘁𝘁𝗶𝗻𝗴. 𝗡𝗼 𝗺𝗶𝘀𝘀𝗲𝗱 𝗹𝗲𝗮𝗱𝘀.\n\n📲 Call or text Vinedentity at 𝟴𝟯𝟯.𝟳𝟭𝟲.𝗩𝗜𝗡𝗘 to get your system live this week.\n\n#VineHUB #SmallBusiness #CRM #CSRA",
+   "permalink": "https://www.facebook.com/482370215869902_2001772017846496",
+   "source": "outside",
+   "performance": {
+    "reactions": 0,
+    "comments": 0,
+    "views": 4
+   }
+  },
+  {
+   "ad_id": "IG-18389856928232634",
+   "title": "November is here: a fresh start for your business",
+   "type": "Post",
+   "platforms": [
+    "instagram"
+   ],
+   "go_out": "2026-11-02T19:27:24-05:00",
+   "status": "posted",
+   "copy": "November is here, and it's the perfect time to give your business a fresh start!\n\nAre you still juggling leads, forgetting follow-ups, or spending too much time on repetitive tasks?\n\nYour business deserves systems that work just as hard as you do.\n\n✅ Capture and organize leads\n✅ Automate your follow-ups\n✅ Keep customer conversations in one place\n✅ Spend less time managing and more time growing\n\nYou don't need to do MORE. You need systems that help you do things BETTER.\n\n✨ Let's make November a month of progress, productivity, and growth!\n\n📩 Ready for a smarter way to run your business? Message Vinedentity to learn more!\n\n#Vinedentity #NewMonthNewGoals #CRM #BusinessAutomation #SmallBusinessGrowth #WebsiteDesign #WorkSmarter #BusinessSystems",
+   "permalink": "https://www.instagram.com/p/DfQl60ToJ6_/",
+   "source": "outside",
+   "performance": {
+    "reactions": 0,
+    "comments": 0,
+    "reach": 1
+   }
+  },
+  {
+   "ad_id": "FB-1999889471368084",
+   "title": "November is here: a fresh start for your business",
+   "type": "Post",
+   "platforms": [
+    "facebook"
+   ],
+   "go_out": "2026-11-02T19:27:08-05:00",
+   "status": "posted",
+   "copy": "November is here, and it's the perfect time to give your business a fresh start!\n\nAre you still juggling leads, forgetting follow-ups, or spending too much time on repetitive tasks?\n\nYour business deserves systems that work just as hard as you do.\n\n✅ Capture and organize leads\n✅ Automate your follow-ups\n✅ Keep customer conversations in one place\n✅ Spend less time managing and more time growing\n\nYou don't need to do MORE. You need systems that help you do things BETTER.\n\n✨ Let's make November a month of progress, productivity, and growth!\n\n📩 Ready for a smarter way to run your business? Message Vinedentity to learn more!\n\n#Vinedentity #NewMonthNewGoals #CRM #BusinessAutomation #SmallBusinessGrowth #WebsiteDesign #WorkSmarter #BusinessSystems",
+   "permalink": "https://www.facebook.com/1573203584036677/posts/1999889471368084",
+   "source": "outside",
+   "performance": {
+    "reactions": 0,
+    "comments": 0
+   }
+  }
+ ]
 }
