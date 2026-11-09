@@ -3,11 +3,45 @@
   "page_name": "Vinedentity VineBUZZ",
   "client_code": "VINE",
   "sub_account_id": "DAPW7RzYt1rSAY1QlJFu",
-  "test_mode": true,
+  "test_mode": false,
   "logo": "../../brand/vinedentity/vinedentity-v-icon.png",
-  "autopilot": {"master": true, "platforms": {"facebook": true, "instagram": true, "linkedin": true, "tiktok": true, "youtube": true, "google_business": true}},
+  "autopilot": {
+    "master": true,
+    "platforms": {
+      "facebook": true,
+      "instagram": true,
+      "linkedin": true,
+      "tiktok": true,
+      "youtube": true,
+      "google_business": true
+    }
+  },
   "approval_form_url": "https://link.vinedentity.com/widget/form/DRay5nnQkfwbcmpkT811",
-  "support": {"phone": "(833) 716-8463", "form_url": "https://link.vinedentity.com/widget/form/L7aB5EW8g0buFzaCRk4D", "booking_url": "https://link.vinedentity.com/widget/booking/3YUYYmsJFIaTxbQb1GB9"},
+  "support": {
+    "phone": "(833) 716-8463",
+    "form_url": "https://link.vinedentity.com/widget/form/L7aB5EW8g0buFzaCRk4D",
+    "booking_url": "https://link.vinedentity.com/widget/booking/3YUYYmsJFIaTxbQb1GB9"
+  },
   "notices": [],
-  "ads": []
+  "ads": [
+    {
+      "ad_id": "VINE-0001",
+      "title": "Plan December's posts now",
+      "type": "Tips",
+      "platforms": [
+        "facebook",
+        "instagram",
+        "tiktok"
+      ],
+      "go_out": "2026-11-13T18:30:00-05:00",
+      "status": "scheduled",
+      "copy": "𝗣𝗹𝗮𝗻 𝗗𝗲𝗰𝗲𝗺𝗯𝗲𝗿'𝘀 𝗽𝗼𝘀𝘁𝘀 𝗻𝗼𝘄.\n\nDecember gets busy fast. A little planning this weekend keeps your page active while you're busy serving customers.\n\n1️⃣ Pick the dates that matter to your business\n2️⃣ Write your posts once, then schedule them all\n3️⃣ Leave room for real moments from your team\n\nWant help mapping it out? Book a free VineCOVERY call: https://link.vinedentity.com/widget/booking/3YUYYmsJFIaTxbQb1GB9\n\n#SmallBusiness #SocialMediaTips #VineBUZZ",
+      "image": "media/graphics/2026-11/PlanDecember-Tip-VINE-0001-feed.jpg",
+      "video": "media/graphics/2026-11/PlanDecember-Tip-VINE-0001-vertical.mp4",
+      "poster": "media/graphics/2026-11/PlanDecember-Tip-VINE-0001-poster.jpg",
+      "alt": "Vinedentity graphic: Plan December's posts now. 1 Pick the dates that matter. 2 Write once, schedule them all. 3 Leave room for real moments. Book a free VineCOVERY call.",
+      "link_url": "https://link.vinedentity.com/widget/booking/3YUYYmsJFIaTxbQb1GB9",
+      "link_label": "Book Now"
+    }
+  ]
 }
