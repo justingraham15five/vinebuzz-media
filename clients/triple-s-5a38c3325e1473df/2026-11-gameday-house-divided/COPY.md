@@ -1,6 +1,6 @@
 # House Divided · Chicken Skins · v1
 
-Post: Tue 11/17 · 11:33 AM (FB, IG, LinkedIn, same slot). Story: Sat 11/21 · 9:33 AM (game day).
+Post: Tue 11/17 · 11:33 AM (photo post) · Reel Thu 11/19 · 11:33 AM (FB, IG, LinkedIn, same slot). Story: Sat 11/21 · 9:33 AM (game day).
 
 ## Facebook
 𝗛𝗼𝘂𝘀𝗲 𝗱𝗶𝘃𝗶𝗱𝗲𝗱? 𝗦𝗮𝗺𝗲 𝘀𝗻𝗮𝗰𝗸. 🏈
