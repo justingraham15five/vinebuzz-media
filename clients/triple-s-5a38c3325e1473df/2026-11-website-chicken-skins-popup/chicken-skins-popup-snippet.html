@@ -1,0 +1,29 @@
+<!-- Triple S Snacks · Chicken Skins flyer pop-up (Vinedentity, 11/20/2026) · shows once per visit -->
+<style>
+#tss-pop{position:fixed;inset:0;z-index:2147483000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.82);padding:16px}
+#tss-pop.on{display:flex}
+#tss-pop .box{position:relative;max-width:520px;width:100%;background:#000;border:3px solid #f2eee3;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+#tss-pop img{display:block;width:100%;height:auto}
+#tss-pop .row{display:flex;gap:10px;padding:12px;background:#000}
+#tss-pop a.go{flex:1;text-align:center;background:#f2eee3;color:#000;font:800 17px/1 Arial,Helvetica,sans-serif;letter-spacing:.5px;text-transform:uppercase;text-decoration:none;padding:15px 10px;border-radius:6px}
+#tss-pop button.x{position:absolute;top:8px;right:8px;width:38px;height:38px;border-radius:50%;border:2px solid #f2eee3;background:#000;color:#fff;font:700 22px/1 Arial,sans-serif;cursor:pointer}
+</style>
+<div id="tss-pop" role="dialog" aria-modal="true" aria-label="New Mutt and Jeff Chicken Skins">
+  <div class="box">
+    <button class="x" aria-label="Close">&times;</button>
+    <img src="https://justingraham15five.github.io/vinebuzz-media/clients/triple-s-5a38c3325e1473df/2026-11-website-chicken-skins-popup/TripleSSnack-MuttJeff-ChickenSkinsFlyer-WebsitePopup_20261120v1.jpg" alt="Introducing NEW Mutt &amp; Jeff Chicken Skins from Triple S Snacks">
+    <div class="row"><a class="go" href="https://triplessnacks.com/where-to-find-triple-s-snacks-products">Find a Store Near You</a></div>
+  </div>
+</div>
+<script>
+(function(){
+  var p=document.getElementById('tss-pop'); if(!p) return;
+  var seen=false; try{seen=sessionStorage.getItem('tssChickenPop')==='1';}catch(e){}
+  if(seen) return;
+  function close(){p.classList.remove('on'); try{sessionStorage.setItem('tssChickenPop','1');}catch(e){}}
+  p.querySelector('.x').onclick=close;
+  p.addEventListener('click',function(e){if(e.target===p) close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape') close();});
+  setTimeout(function(){p.classList.add('on');},1200);
+})();
+</script>
